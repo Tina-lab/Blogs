@@ -5,12 +5,14 @@
     <head>
         <meta charset="utf-8">
         <title>My Personal Blog</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
 <body>
+    <div class="container text-center my-4">
     <h1>My Personal Blog</h1>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <a href=""{% url "blog_index" %}">Home</a>
+    <a href="{% url "blog_index" %}">Home</a>
     <hr>
+    </div>
     {% block page_title %}{% endblock page_title%}
     {%block page_content %}{% endblock page_content %}
 </body>
