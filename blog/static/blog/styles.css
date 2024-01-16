@@ -1,0 +1,47 @@
+.card-columns {
+    column-count: 3;
+}
+
+.card {
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    width: 100%;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto; /* Retain aspect ratio */
+    object-fit: cover; /* Cover the area of the card */
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-title {
+    font-size: 1.1em; /* Adjust title size */
+}
+
+.card-footer {
+    font-size: 0.8em; /* Adjust footer size for date and categories */
+    background-color: transparent;
+    border-top: none
+;
+}
+
+.card .badge {
+margin-right: 0.25rem;
+}
+
+/* Adjust this media query as needed */
+@media (max-width: 768px) {
+.card-columns {
+column-count: 2;
+}
+}
+
+@media (max-width: 576px) {
+.card-columns {
+column-count: 1;
+}
+}

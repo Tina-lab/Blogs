@@ -1,28 +1,32 @@
 <!-- blog/templates/blog/index.html -->
 
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_title %}
-    <h2> Blog Posts</h2>
+    <h2 class="text-center my-4">Blog Posts</h2>
 {% endblock page_title %}
 
-
 {% block page_content %}
-    {% block posts %}
+<div class="container">
+    <div class="card-columns">
         {% for post in posts %}
-            <h3><a href="{% url 'blog_detail' post.pk %}">{{post.title }}</a></h3>
-            {% if post.image %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}">
-            {% endif %}
-            <small>
-                {{ post.created_on.date}} | Categories:
-                {% for category in post.categories.all %}
-                    <a href="{% url 'blog_category' category.name %}"> 
-                        {{ category.name }}
-                    </a>
-                {% endfor %}
-            </small>
-            <p>{{ post.body | slice:":400" }}...</p>
+            <div class="card">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h5>
+                    <p class="card-text">{{ post.body | slice:":200" }}...</p>
+                    <div class="card-footer text-muted">
+                        {{ post.created_on.date }}
+                        <br>
+                        {% for category in post.categories.all %}
+                            <span class="badge badge-secondary">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    {% endblock posts %}
+    </div>
+</div>
 {% endblock page_content %}
