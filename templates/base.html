@@ -2,18 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>My Personal Blog</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 <body>
-    <div class="container text-center my-4">
-    <h1>My Personal Blog</h1>
-    <a href="{% url "blog_index" %}">Home</a>
-    <hr>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog_index' %}">My Personal Blog</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog_index' %}">Home</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <span class="navbar-text mr-3">Hello, {{ user.username }}</span>
+                        <!-- Logout Form -->
+                        <form action="{% url 'logout' %}" method="post" class="form-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Log Out</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'signup' %}" class="btn btn-primary mr-2">Sign Up</a>
+                        <a href="{% url 'login' %}" class="btn btn-secondary">Log In</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <hr>
+        {% block page_title %}{% endblock page_title %}
+        {% block page_content %}{% endblock page_content %}
     </div>
-    {% block page_title %}{% endblock page_title%}
-    {%block page_content %}{% endblock page_content %}
 </body>
 </html>

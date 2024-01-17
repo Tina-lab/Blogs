@@ -1,7 +1,24 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blog.models import Post, Comment
 from blog.forms import CommentForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('blog_index')  # Adjust the redirect URL as needed
+    else:
+        form = UserCreationForm()
+    return render(request, 'blog/signup.html', {'form': form})
 
 
 def blog_index(request):
