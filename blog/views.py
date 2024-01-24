@@ -23,6 +23,8 @@ def signup(request):
 
 def blog_index(request):
     posts = Post.objects.all().order_by("-created_on")
+    for post in posts:
+        post.comment_count = post.comment_set.count()
     context = {
         "posts": posts,
     }

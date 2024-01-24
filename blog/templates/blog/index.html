@@ -14,12 +14,17 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h5>
                     <p class="card-text">{{ post.body | slice:":200" }}...</p>
-                    <div class="card-footer text-muted">
-                        {{ post.created_on.date }}
-                        <br>
-                        {% for category in post.categories.all %}
-                            <span class="badge badge-secondary">{{ category.name }}</span>
-                        {% endfor %}
+                    <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                        <div>
+                            {{ post.created_on.date }}
+                            <br>
+                            {% for category in post.categories.all %}
+                                <span class="badge badge-secondary">{{ category.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="comment-count">
+                            <i class="fas fa-comment"></i> {{ post.comment_count }}
+                        </div>
                     </div>
                 </div>
             </div>
